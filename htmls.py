@@ -23,6 +23,12 @@ class Element(object):
     def __init__(self, element):
         self.element = element
 
+    def __unicode__(self):
+        return tostring(self.element)
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
     @property
     def tag(self):
         """
@@ -85,7 +91,7 @@ class Element(object):
         return attribute in self.element.attrib
 
 
-class Q(object):
+class S(object):
     """
     An object that is optimized for testing HTML output
     with CSS selectors.
@@ -98,7 +104,7 @@ class Q(object):
         self.html = html
         self.parsed = self.parse_html()
 
-    def parse_html(self):
+    def parse_html(self, **kwargs):
         """
         Parse ``self.html``.
 
