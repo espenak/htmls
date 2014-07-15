@@ -8,6 +8,7 @@ setup(
     license='BSD',
     url='https://github.com/espenak/htmls',
     author='Espen Angell Kristiansen',
+    author_email='post@espenak.net',
     packages=find_packages(),
     install_requires=[
         'lxml',
