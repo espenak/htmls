@@ -4,15 +4,7 @@ language: python
 python:
   - "2.7"
 
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq python-virtualenv python-setuptools
-
-# http://www.vlent.nl/weblog/2012/10/12/travis-ci-easy-and-fun-ci-for-your-plone-packages-nejc-zupan/
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-  - (virtualenv venv; venv/bin/pip install -r requirements.txt)
+  - pip install -r requirements.txt
 
-# command to run tests, e.g. python setup.py test
-script:
-  - venv/bin/python setup.py test
+script: python setup.py test
