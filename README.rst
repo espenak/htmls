@@ -2,6 +2,9 @@
 htmls
 #####
 
+.. image:: https://travis-ci.org/espenak/htmls.svg?branch=master
+    :target: https://travis-ci.org/espenak/htmls
+
 ``htmls`` makes it easy to write use CSS selectors with HTML in your unit tests.
 
 
@@ -87,6 +90,9 @@ Docs
 We have no HTML API docs at this time. This is a very small library,
 it is less than 200 lines of well documented code. So just read ``htmls.py``,
 or use ``pydoc htmls`` after you have installed the library.
+
+Also check out the code in ``tests/test_htmls.py``. We have 100% test coverage,
+and the tests are good examples.
 
 
 
