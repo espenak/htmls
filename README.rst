@@ -5,7 +5,7 @@ htmls
 .. image:: https://travis-ci.org/espenak/htmls.svg?branch=master
     :target: https://travis-ci.org/espenak/htmls
 
-``htmls`` makes it easy to write use CSS selectors with HTML in your unit tests.
+``htmls`` makes it easy to use CSS selectors with HTML in your unit tests.
 
 
 ***************
