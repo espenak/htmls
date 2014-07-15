@@ -3,9 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='htmls',
-    description=(
-        'Minimalistic CSS query library using lxml. Designed for unit '
-        'testing of HTML output (from Django, web.py, ...).'),
+    description='Makes it easy to write use CSS selectors with HTML in your unit tests.',
     version='0.9',
     license='BSD',
     url='https://github.com/espenak/htmls',

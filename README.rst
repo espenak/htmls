@@ -2,7 +2,34 @@
 htmls
 #####
 
-``htmls`` makes it easy to write CSS queries for HTML in your unit tests.
+``htmls`` makes it easy to write use CSS selectors with HTML in your unit tests.
+
+
+***************
+Getting started
+***************
+
+Requirements
+============
+Htmls requires `lxml <http://lxml.de/>`_. lxml requires libxml2 and libxslt,
+so you have to install those libraries. You do not need to install lxml,
+htmls will pull it in as a dependency.
+
+Tip for Mac OSX
+---------------
+How to install libxml2 and libxslt is described in their docs, but their
+docs does not mention that libxml2 and libxslt is available in Homebrew
+for OSX. You can install them with::
+
+    $ brew install libxml2 libxslt
+
+
+Install
+=======
+When you have install libxml2 and libxslt, you can install htmls with:: 
+
+    $ pip install htmls
+
 
 *******
 Example
