@@ -34,7 +34,7 @@ When you have install libxml2 and libxslt, you can install htmls with::
 *******
 Example
 *******
-::
+.. code:: python
 
     import unittest
     import htmls
