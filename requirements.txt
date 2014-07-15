@@ -1,4 +1,11 @@
-nose==1.3.1
+# These are the versions we are testing against
+# The library should work with a lot more versions,
+# if you have problems, try using these versions!
+html5lib==0.999
+lxml==3.3.5
+six==1.7.3
+wsgiref==0.1.2
+cssselect==0.9.1
 
 # Include _this_ module (the one defined in setup.py)
 -e .

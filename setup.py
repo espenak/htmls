@@ -1,17 +1,17 @@
 from setuptools import setup, find_packages
-from soupq import version
 
 
 setup(
     name='htmlq',
     description='Minimalistic CSS query library using lxml. Designed for testing HTML output (from Django, web.py, ...).',
-    version=version,
+    version='0.9',
     license='BSD',
     url='https://github.com/espenak/soupq',
     author='Espen Angell Kristiansen',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages(),
     install_requires=[
-        'lxml'
+        'lxml',
+        'html5lib',
     ],
     include_package_data=True,
     long_description='See https://github.com/espenak/soupq',
