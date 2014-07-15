@@ -87,8 +87,14 @@ class Element(object):
 
 class Q(object):
     """
+    An object that is optimized for testing HTML output
+    with CSS selectors.
     """
     def __init__(self, html):
+        """
+        Parameters:
+            html (string): A string/unicode containing HTML.
+        """
         self.html = html
         self.parsed = self.parse_html()
 
