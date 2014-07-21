@@ -94,6 +94,21 @@ class PrettifyElement(object):
         return unicode(self).encode('utf-8')
 
 
+def _get_all_text_in_element(rootelement):
+    alltext = []
+
+    def _collect_text_in_element(element, root=True):
+        if element.text and element.text.strip():
+            alltext.append(element.text)
+        for childelement in element.getchildren():
+            _collect_text_in_element(childelement, root=False)
+        if not root and element.tail and element.tail.strip():
+            alltext.append(element.tail)
+
+    _collect_text_in_element(rootelement)
+    return alltext
+
+
 class Element(object):
     def __init__(self, element):
         self.element = element
@@ -130,6 +145,24 @@ class Element(object):
         Get :meth:`.text`, normalized using :func:`.normalize_whitespace`.
         """
         return normalize_whitespace(self.element.text)
+
+    @property
+    def alltext(self):
+        """
+        Get all text within this element and all child elements.
+
+        Iterates over all the text nodes within this element, including any
+        text nodes in child nodes and joins them into a single string.
+        """
+        alltext = u''.join(_get_all_text_in_element(self.element))
+        return alltext
+
+    @property
+    def alltext_normalized(self):
+        """
+        Get :meth:`.alltext`, normalized using :func:`.normalize_whitespace`.
+        """
+        return normalize_whitespace(self.alltext).strip()
 
     def __getitem__(self, elementattribute):
         """

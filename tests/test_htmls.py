@@ -70,20 +70,34 @@ class TestHtmls(unittest.TestCase):
     def test_text(self):
         self.assertEquals(
             'Tst',
-            htmls.S('<a class="btn">Tst</a>').one('a').text)
+            htmls.S('<a>Tst</a>').one('a').text)
 
     def test_tag(self):
         self.assertEquals(
             'a',
-            htmls.S('<a class="btn">Tst</a>').one('a').tag)
+            htmls.S('<a>Tst</a>').one('a').tag)
 
     def test_text_normalized(self):
         self.assertEquals(
             'Hello world',
-            htmls.S('<a class="btn">Hello world</a>').one('a').text_normalized)
+            htmls.S('<a>Hello world</a>').one('a').text_normalized)
         self.assertEquals(
             'Hello world',
-            htmls.S('<a class="btn">   Hello\n\tworld\n\t</a>').one('a').text_normalized)
+            htmls.S('<a>   Hello\n\tworld\n\t</a>').one('a').text_normalized)
+
+    def test_alltext_normalized(self):
+        self.assertEquals(
+            'Hello world',
+            htmls.S('<a>Hello world</a>').one('a').alltext_normalized)
+        self.assertEquals(
+            'Hello world. This is a test!',
+            htmls.S("""
+                <a>
+                    <strong>Hello</strong> world.
+                    <em>This is
+                    a test</em>!
+                </a>
+            """).one('a').alltext_normalized)
 
     def test_prettify(self):
         pretty = htmls.S("""
