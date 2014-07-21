@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 setup(
     name='htmls',
     description='Makes it easy to write use CSS selectors with HTML in your unit tests.',
-    version='0.9.1',
+    version='0.9.2',
     license='BSD',
     url='https://github.com/espenak/htmls',
     author='Espen Angell Kristiansen',
@@ -13,6 +13,7 @@ setup(
     install_requires=[
         'lxml',
         'html5lib',
+        'cssselect',
     ],
     include_package_data=True,
     long_description='See https://github.com/espenak/htmls',
