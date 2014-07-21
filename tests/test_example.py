@@ -24,8 +24,8 @@ class ExampleTest(unittest.TestCase):
         buttons = selector.list('a.btn')  # List of htmls.Element
 
         # Debugging
-        print selector
-        print button
+        print selector.prettify()  # Or selector.prettyprint()
+        print button.prettify()  # Or button.prettyprint()
 
         # Find the text of an element with normalized whitespace
         self.assertEquals(selector.one('a.btn').text_normalized, 'Cruel World')

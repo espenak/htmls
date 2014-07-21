@@ -1,4 +1,6 @@
 import re
+import textwrap
+from xml.sax.saxutils import quoteattr
 from lxml.html import tostring
 from lxml.cssselect import CSSSelector
 import html5lib
@@ -19,6 +21,79 @@ def normalize_whitespace(text):
     return re.sub('(\s|\\xa0)+', ' ', text).strip()
 
 
+def encode_attributes(iterable):
+    """
+    Encode an iterable of ``(attributename, attributevalue)`` pairs
+    as XML attibutes.
+
+    Example:
+
+        >>> encode_attributes([('class', 'btn')])
+        u'class="btn"'
+    """
+    return ' '.join([
+        u'{}={}'.format(attribute, quoteattr(value))
+        for attribute, value in iterable])
+
+
+def prettify_text(text, indent=''):
+    """
+    Dedent and reindent the given text.
+
+    Example:
+
+        >>> prettify_text('   Test')
+        u'Test'
+        >>> prettify_text('       Test', indent='  ')
+        u'  Test'
+    """
+    text = textwrap.dedent(text).strip()
+    out = []
+    for line in text.split('\n'):
+        out.append(u'{}{}'.format(indent, line))
+    return u'\n'.join(out)
+
+
+class PrettifyElement(object):
+    def __init__(self, element, indentspace='    '):
+        self.indentspace = indentspace
+        self.out = []
+        self._prettify_element(element)
+
+    def _prettify_element(self, element, indentcount=0):
+        indent = self.indentspace * indentcount
+        if element.tag:
+            attributes = u''
+            if element.attrib:
+                attributes = u' {}'.format(encode_attributes(element.items()))
+            self.out.append(u'{indent}<{tag}{attributes}>'.format(
+                indent=indent, tag=element.tag, attributes=attributes))
+        if element.text and element.text.strip():
+            textindent = indent
+            if element.tag and element.text:
+                # Make sure we indent correctly when we have a tag with
+                # text as only child
+                textindent = indent + self.indentspace
+            text = prettify_text(element.text, textindent)
+            self.out.append(text)
+        for childelement in element.getchildren():
+            self._prettify_element(childelement, indentcount=indentcount + 1)
+
+        if element.tag:
+            self.out.append(u'{}</{}>'.format(indent, element.tag))
+
+        # Handle text between two elements (below the current element)
+        if element.tail and element.tail.strip():
+            text = prettify_text(element.tail, indent)
+            self.out.append(text)
+
+    def __unicode__(self):
+        return u'\n'.join(self.out)
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+
+
 class Element(object):
     def __init__(self, element):
         self.element = element
@@ -28,6 +103,12 @@ class Element(object):
 
     def __str__(self):
         return unicode(self).encode('utf-8')
+
+    def prettify(self, **kwargs):
+        return unicode(PrettifyElement(self.element, **kwargs))
+
+    def prettyprint(self):
+        print self.prettify()
 
     @property
     def tag(self):
@@ -121,6 +202,12 @@ class S(object):
 
     def __str__(self):
         return unicode(self).encode('utf-8')
+
+    def prettify(self, **kwargs):
+        return unicode(PrettifyElement(self.parsed.getroot(), **kwargs))
+
+    def prettyprint(self):
+        print self.prettify()
 
     def list(self, cssselector):
         """

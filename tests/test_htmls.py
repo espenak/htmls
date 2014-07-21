@@ -1,4 +1,5 @@
 import unittest
+import doctest
 import htmls
 
 
@@ -83,3 +84,57 @@ class TestHtmls(unittest.TestCase):
         self.assertEquals(
             'Hello world',
             htmls.S('<a class="btn">   Hello\n\tworld\n\t</a>').one('a').text_normalized)
+
+    def test_prettify(self):
+        pretty = htmls.S("""
+            <html>
+            <body>
+                <a class="btn">Hello world</a>
+                This is a test!
+                <ul>
+                <li>A test</li>
+            <li>Another test</li>
+                    </ul>
+            </body>
+            </html>
+        """).prettify()
+        self.assertEquals(
+            pretty,
+            ('<html>\n'
+             '    <head>\n'
+             '    </head>\n'
+             '    <body>\n'
+             '        <a class="btn">\n'
+             '            Hello world\n'
+             '        </a>\n'
+             '        This is a test!\n'
+             '        <ul>\n'
+             '            <li>\n'
+             '                A test\n'
+             '            </li>\n'
+             '            <li>\n'
+             '                Another test\n'
+             '            </li>\n'
+             '        </ul>\n'
+             '    </body>\n'
+             '</html>'))
+
+    def test_encode_attributes(self):
+        self.assertEquals(
+            htmls.encode_attributes([('a', '10'), ('b', "Hello")]),
+            'a="10" b="Hello"'
+        )
+
+    def test_encode_attributes_quotes(self):
+        self.assertEquals(
+            htmls.encode_attributes([
+                ('a', 'A "test"'),
+                ('b', "Another 'test'")
+            ]),
+            'a=\'A "test"\' b="Another \'test\'"'
+        )
+
+
+def load_tests(loader, tests, ignore):
+    tests.addTests(doctest.DocTestSuite(htmls))
+    return tests
