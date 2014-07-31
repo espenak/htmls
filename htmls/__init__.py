@@ -170,6 +170,12 @@ class Element(object):
         """
         return self.element.attrib[elementattribute]
 
+    def get(self, elementattribute, default=None):
+        """
+        Get the value of an attribute, defaulting to ``default``.
+        """
+        return self.element.get(elementattribute, default)
+
     @property
     def cssclasses(self):
         """
