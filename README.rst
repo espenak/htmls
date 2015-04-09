@@ -18,6 +18,8 @@ Htmls requires `lxml <http://lxml.de/>`_. lxml requires libxml2 and libxslt,
 so you have to install those libraries. You do not need to install lxml,
 htmls will pull it in as a dependency.
 
+Should work with any fairly new version of Python. Tested with Python 2.7 and Python 3.4.
+
 Tip for Mac OSX
 ---------------
 How to install libxml2 and libxslt is described in their docs, but their
