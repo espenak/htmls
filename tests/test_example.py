@@ -1,3 +1,4 @@
+from __future__ import print_function
 import unittest
 import htmls
 
@@ -21,7 +22,7 @@ class ExampleTest(unittest.TestCase):
         button = selector.one('a.btn')  # Single htmls.Element
         with self.assertRaises(htmls.NotExactlyOneMatchError):
             button = selector.one('a')  # Fails because the a selector matches 2 elements.
-        buttons = selector.list('a.btn')  # List of htmls.Element
+        buttons = selector.list('a')  # List of htmls.Element
         self.assertEqual(len(buttons), 2)
 
         # Debugging

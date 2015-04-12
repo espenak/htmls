@@ -1,10 +1,14 @@
 from __future__ import print_function
+from builtins import str
+from builtins import map
+from builtins import object
 import re
 import textwrap
 from xml.sax.saxutils import quoteattr
 from lxml.html import tostring
 from lxml.cssselect import CSSSelector
 import html5lib
+from future.utils import python_2_unicode_compatible
 
 
 class NotExactlyOneMatchError(Exception):
@@ -29,8 +33,8 @@ def encode_attributes(iterable):
 
     Example:
 
-        >>> encode_attributes([('class', 'btn')])
-        u'class="btn"'
+        >>> encode_attributes([('class', 'btn')]) == 'class="btn"'
+        True
     """
     return ' '.join([
         u'{}={}'.format(attribute, quoteattr(value))
@@ -43,10 +47,10 @@ def prettify_text(text, indent=''):
 
     Example:
 
-        >>> prettify_text('   Test')
-        u'Test'
-        >>> prettify_text('       Test', indent='  ')
-        u'  Test'
+        >>> prettify_text('   Test') == 'Test'
+        True
+        >>> prettify_text('       Test', indent='  ') == '  Test'
+        True
     """
     text = textwrap.dedent(text).strip()
     out = []
@@ -55,6 +59,7 @@ def prettify_text(text, indent=''):
     return u'\n'.join(out)
 
 
+@python_2_unicode_compatible
 class PrettifyElement(object):
     def __init__(self, element, indentspace='    '):
         self.indentspace = indentspace
@@ -66,7 +71,7 @@ class PrettifyElement(object):
         if element.tag:
             attributes = u''
             if element.attrib:
-                attributes = u' {}'.format(encode_attributes(element.items()))
+                attributes = u' {}'.format(encode_attributes(list(element.items())))
             self.out.append(u'{indent}<{tag}{attributes}>'.format(
                 indent=indent, tag=element.tag, attributes=attributes))
         if element.text and element.text.strip():
@@ -88,11 +93,8 @@ class PrettifyElement(object):
             text = prettify_text(element.tail, indent)
             self.out.append(text)
 
-    def __unicode__(self):
-        return u'\n'.join(self.out)
-
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        return u'\n'.join(self.out)
 
 
 def _get_all_text_in_element(rootelement):
@@ -110,18 +112,16 @@ def _get_all_text_in_element(rootelement):
     return alltext
 
 
+@python_2_unicode_compatible
 class Element(object):
     def __init__(self, element):
         self.element = element
 
-    def __unicode__(self):
+    def __str__(self):
         return tostring(self.element)
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
-
     def prettify(self, **kwargs):
-        return unicode(PrettifyElement(self.element, **kwargs))
+        return str(PrettifyElement(self.element, **kwargs))
 
     def prettyprint(self):
         print(self.prettify())
@@ -212,6 +212,7 @@ class Element(object):
         return attribute in self.element.attrib
 
 
+@python_2_unicode_compatible
 class S(object):
     """
     An object that is optimized for testing HTML output
@@ -237,14 +238,11 @@ class S(object):
         """
         return html5lib.parse(self.html, treebuilder='lxml', namespaceHTMLElements=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return tostring(self.parsed)
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
-
     def prettify(self, **kwargs):
-        return unicode(PrettifyElement(self.parsed.getroot(), **kwargs))
+        return str(PrettifyElement(self.parsed.getroot(), **kwargs))
 
     def prettyprint(self):
         print(self.prettify())
@@ -257,7 +255,7 @@ class S(object):
             List of :class:`.Element` objects.
         """
         selector = CSSSelector(cssselector)
-        return map(Element, selector(self.parsed))
+        return list(map(Element, selector(self.parsed)))
 
     def count(self, cssselector):
         """

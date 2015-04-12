@@ -10,3 +10,5 @@
 dist/
 .tox/
 __pycache__/
+
+/future-*.egg/

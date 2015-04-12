@@ -119,3 +119,12 @@ Running the tests
 Once you have created a development environment, run the tests with::
 
     $ python setup.py test
+
+
+Running tests and syntax checks for python2 and python3
+=======================================================
+Make sure you are not in a virtualenv (at least that caused some strange errors
+where python3 got elements from the python2 path for me). Run::
+
+    $ tox
+
