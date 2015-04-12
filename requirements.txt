@@ -7,6 +7,7 @@ six==1.9.0
 cssselect==0.9.1
 flake8==2.4.0
 tox==1.9.2
+future==0.14.3
 
 # Include _this_ module (the one defined in setup.py)
 -e .
