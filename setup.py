@@ -14,6 +14,7 @@ setup(
         'lxml',
         'html5lib',
         'cssselect',
+        'future'
     ],
     include_package_data=True,
     long_description='See https://github.com/espenak/htmls',
