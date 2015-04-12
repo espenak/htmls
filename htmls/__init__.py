@@ -271,7 +271,7 @@ class S(object):
         one element.
         """
         return bool(self.list(cssselector))
-        
+
     def one(self, cssselector):
         """
         Get exactly one match for the given CSS selector.
