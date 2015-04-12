@@ -12,3 +12,7 @@ dist/
 __pycache__/
 
 /future-*.egg/
+
+# Ignore user-specific pycharm settings
+.idea/workspace.xml
+.idea/tasks.xml
