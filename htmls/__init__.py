@@ -1,3 +1,4 @@
+from __future__ import print_function
 import re
 import textwrap
 from xml.sax.saxutils import quoteattr
@@ -123,7 +124,7 @@ class Element(object):
         return unicode(PrettifyElement(self.element, **kwargs))
 
     def prettyprint(self):
-        print self.prettify()
+        print(self.prettify())
 
     @property
     def tag(self):
@@ -246,7 +247,7 @@ class S(object):
         return unicode(PrettifyElement(self.parsed.getroot(), **kwargs))
 
     def prettyprint(self):
-        print self.prettify()
+        print(self.prettify())
 
     def list(self, cssselector):
         """
