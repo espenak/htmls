@@ -8,3 +8,5 @@
 .DS_Store
 *.egg-info/
 dist/
+.tox/
+__pycache__/
