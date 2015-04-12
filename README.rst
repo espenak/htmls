@@ -123,8 +123,12 @@ Once you have created a development environment, run the tests with::
 
 Running tests and syntax checks for python2 and python3
 =======================================================
-Make sure you are not in a virtualenv (at least that caused some strange errors
-where python3 got elements from the python2 path for me). Run::
+Run::
 
     $ tox
 
+to run the tests on both python 2.7 and python 3.4, and to run flake8 on the codebase.
+
+WARNING: There seems to be a problem if you create a virtualenv for python 2.7 and
+try to run tox with python 3.4 (``tox -e py34``). You can work around this
+by deactivating the virtualenv, or by running tox from a Python3 virtualenv.
