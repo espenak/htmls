@@ -36,6 +36,14 @@ class TestHtmls(unittest.TestCase):
             ['btn', 'btn-default'],
             htmls.S('<a class="btn btn-default">Tst</a>').one('a').cssclasses)
 
+    def test_cssclasses_extra_whitespace(self):
+        self.assertEquals(
+            ['btn'],
+            htmls.S('<a class="  btn  ">Tst</a>').one('a').cssclasses)
+        self.assertEquals(
+            ['btn', 'btn-default'],
+            htmls.S('<a class="   btn  btn-default  ">Tst</a>').one('a').cssclasses)
+
     def test_cssclasses_set(self):
         self.assertEquals(
             set(['btn']),
@@ -43,6 +51,14 @@ class TestHtmls(unittest.TestCase):
         self.assertEquals(
             set(['btn', 'btn-default']),
             htmls.S('<a class="btn btn-default">Tst</a>').one('a').cssclasses_set)
+
+    def test_cssclasses_set_extra_whitespace(self):
+        self.assertEquals(
+            set(['btn']),
+            htmls.S('<a class="  btn  ">Tst</a>').one('a').cssclasses_set)
+        self.assertEquals(
+            set(['btn', 'btn-default']),
+            htmls.S('<a class="  btn  btn-default  ">Tst</a>').one('a').cssclasses_set)
 
     def test_hasclass(self):
         self.assertTrue(

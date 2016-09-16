@@ -182,14 +182,14 @@ class Element(object):
         """
         Get the CSS classes as a list.
         """
-        return re.split('\s+', self['class'])
+        return re.split('\s+', self['class'].strip())
 
     @property
     def cssclasses_set(self):
         """
         Get the CSS classes as a set.
         """
-        return set(re.split('\s+', self['class']))
+        return set(re.split('\s+', self['class'].strip()))
 
     def hasclass(self, cssclass):
         """
