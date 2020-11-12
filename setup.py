@@ -13,8 +13,7 @@ setup(
     install_requires=[
         'lxml',
         'html5lib',
-        'cssselect',
-        'future'
+        'cssselect'
     ],
     include_package_data=True,
     long_description='See https://github.com/espenak/htmls',

@@ -1,4 +1,3 @@
-from __future__ import print_function
 from builtins import str
 from builtins import map
 from builtins import object
@@ -8,7 +7,6 @@ from xml.sax.saxutils import quoteattr
 from lxml.html import tostring
 from lxml.cssselect import CSSSelector
 import html5lib
-from future.utils import python_2_unicode_compatible
 
 
 class NotExactlyOneMatchError(Exception):
@@ -59,7 +57,6 @@ def prettify_text(text, indent=''):
     return u'\n'.join(out)
 
 
-@python_2_unicode_compatible
 class PrettifyElement(object):
     def __init__(self, element, indentspace='    '):
         self.indentspace = indentspace
@@ -112,7 +109,6 @@ def _get_all_text_in_element(rootelement):
     return alltext
 
 
-@python_2_unicode_compatible
 class Element(object):
     def __init__(self, element):
         self.element = element
@@ -212,7 +208,6 @@ class Element(object):
         return attribute in self.element.attrib
 
 
-@python_2_unicode_compatible
 class S(object):
     """
     An object that is optimized for testing HTML output
