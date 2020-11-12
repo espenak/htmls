@@ -116,3 +116,13 @@ Running the tests
 Once you have created a development environment, run the tests with::
 
     $ pipenv run python setup.py test
+
+
+Release
+=======
+1. Update the version in ``setup.py``.
+2. Add releasenote to releasenotes folder on root with name `releasenotes-<major-version>.md`.
+3. Commit with ``Release <version>``.
+4. Tag the commit with ``<version>``.
+5. Push (``git push && git push --tags``).
+6. Release to pypi (``python setup.py sdist && twine upload dist/htmls-<version>.tar.gz``).
