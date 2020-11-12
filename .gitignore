@@ -16,3 +16,7 @@ __pycache__/
 # Ignore user-specific pycharm settings
 .idea/workspace.xml
 .idea/tasks.xml
+
+.vscode/
+
+/build/
