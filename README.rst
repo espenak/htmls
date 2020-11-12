@@ -125,4 +125,4 @@ Release
 3. Commit with ``Release <version>``.
 4. Tag the commit with ``<version>``.
 5. Push (``git push && git push --tags``).
-6. Release to pypi (``python setup.py sdist && twine upload dist/htmls-<version>.tar.gz``).
+6. Release to pypi (``pipenv run python setup.py sdist && pipenv run twine upload dist/htmls-<version>.tar.gz``).
