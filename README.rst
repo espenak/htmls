@@ -108,28 +108,11 @@ Setting up the development enviroment
 
 Create a virtualenv::
 
-    $ mkvirtualenv htmls
-
-Install the dependencies::
-
-    $ pip install -r requirements.txt
+    $ pipenv install --dev
 
 
 Running the tests
 =================
 Once you have created a development environment, run the tests with::
 
-    $ python setup.py test
-
-
-Running tests and syntax checks for python2 and python3
-=======================================================
-Run::
-
-    $ tox
-
-to run the tests on both python 2.7 and python 3.4, and to run flake8 on the codebase.
-
-WARNING: There seems to be a problem if you create a virtualenv for python 2.7 and
-try to run tox with python 3.4 (``tox -e py34``). You can work around this
-by deactivating the virtualenv, or by running tox from a Python3 virtualenv.
+    $ pipenv run python setup.py test
