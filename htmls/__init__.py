@@ -9,6 +9,9 @@ from lxml.cssselect import CSSSelector
 import html5lib
 
 
+__version__ = "2.0.0"
+
+
 class NotExactlyOneMatchError(Exception):
     """
     Raised when :meth:`.Q.one` does not match exactly one element.
@@ -21,7 +24,7 @@ def normalize_whitespace(text):
     and replaces all consecutive whitespace characters (including tabs,
     newlines and nonbreak space) with a single space.
     """
-    return re.sub('(\s|\\xa0)+', ' ', text).strip()
+    return re.sub(r'(\s|\\xa0)+', ' ', text).strip()
 
 
 def encode_attributes(iterable):
@@ -178,14 +181,14 @@ class Element(object):
         """
         Get the CSS classes as a list.
         """
-        return re.split('\s+', self['class'].strip())
+        return re.split(r'\s+', self['class'].strip())
 
     @property
     def cssclasses_set(self):
         """
         Get the CSS classes as a set.
         """
-        return set(re.split('\s+', self['class'].strip()))
+        return set(re.split(r'\s+', self['class'].strip()))
 
     def hasclass(self, cssclass):
         """

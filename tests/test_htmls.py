@@ -5,7 +5,7 @@ import htmls
 
 class TestHtmls(unittest.TestCase):
     def test_list(self):
-        self.assertEquals(
+        self.assertEqual(
             len(htmls.S('<a class="btn">Tst</a>').list('a')), 1)
 
     def test_one(self):
@@ -15,10 +15,10 @@ class TestHtmls(unittest.TestCase):
             htmls.S('').one('a')
 
     def test_count(self):
-        self.assertEquals(
+        self.assertEqual(
             1,
             htmls.S('<a class="btn">Tst</a><a class="link">Tst2</a>').count('a.btn'))
-        self.assertEquals(
+        self.assertEqual(
             0,
             htmls.S('<a class="btn">Tst</a><a class="link">Tst2</a>').count('a.btn-lg'))
 
@@ -29,34 +29,34 @@ class TestHtmls(unittest.TestCase):
             htmls.S('<a class="btn">Tst</a><a class="link">Tst2</a>').exists('a.btn-lg'))
 
     def test_cssclasses(self):
-        self.assertEquals(
+        self.assertEqual(
             ['btn'],
             htmls.S('<a class="btn">Tst</a>').one('a').cssclasses)
-        self.assertEquals(
+        self.assertEqual(
             ['btn', 'btn-default'],
             htmls.S('<a class="btn btn-default">Tst</a>').one('a').cssclasses)
 
     def test_cssclasses_extra_whitespace(self):
-        self.assertEquals(
+        self.assertEqual(
             ['btn'],
             htmls.S('<a class="  btn  ">Tst</a>').one('a').cssclasses)
-        self.assertEquals(
+        self.assertEqual(
             ['btn', 'btn-default'],
             htmls.S('<a class="   btn  btn-default  ">Tst</a>').one('a').cssclasses)
 
     def test_cssclasses_set(self):
-        self.assertEquals(
+        self.assertEqual(
             set(['btn']),
             htmls.S('<a class="btn">Tst</a>').one('a').cssclasses_set)
-        self.assertEquals(
+        self.assertEqual(
             set(['btn', 'btn-default']),
             htmls.S('<a class="btn btn-default">Tst</a>').one('a').cssclasses_set)
 
     def test_cssclasses_set_extra_whitespace(self):
-        self.assertEquals(
+        self.assertEqual(
             set(['btn']),
             htmls.S('<a class="  btn  ">Tst</a>').one('a').cssclasses_set)
-        self.assertEquals(
+        self.assertEqual(
             set(['btn', 'btn-default']),
             htmls.S('<a class="  btn  btn-default  ">Tst</a>').one('a').cssclasses_set)
 
@@ -84,28 +84,28 @@ class TestHtmls(unittest.TestCase):
             htmls.S('<a class="btn">Tst</a>').one('a').hasattribute('href'))
 
     def test_text(self):
-        self.assertEquals(
+        self.assertEqual(
             'Tst',
             htmls.S('<a>Tst</a>').one('a').text)
 
     def test_tag(self):
-        self.assertEquals(
+        self.assertEqual(
             'a',
             htmls.S('<a>Tst</a>').one('a').tag)
 
     def test_text_normalized(self):
-        self.assertEquals(
+        self.assertEqual(
             'Hello world',
             htmls.S('<a>Hello world</a>').one('a').text_normalized)
-        self.assertEquals(
+        self.assertEqual(
             'Hello world',
             htmls.S('<a>   Hello\n\tworld\n\t</a>').one('a').text_normalized)
 
     def test_alltext_normalized(self):
-        self.assertEquals(
+        self.assertEqual(
             'Hello world',
             htmls.S('<a>Hello world</a>').one('a').alltext_normalized)
-        self.assertEquals(
+        self.assertEqual(
             'Hello world. This is a test!',
             htmls.S("""
                 <a>
@@ -128,7 +128,7 @@ class TestHtmls(unittest.TestCase):
             </body>
             </html>
         """).prettify()
-        self.assertEquals(
+        self.assertEqual(
             pretty,
             ('<html>\n'
              '    <head>\n'
@@ -150,13 +150,13 @@ class TestHtmls(unittest.TestCase):
              '</html>'))
 
     def test_encode_attributes(self):
-        self.assertEquals(
+        self.assertEqual(
             htmls.encode_attributes([('a', '10'), ('b', "Hello")]),
             'a="10" b="Hello"'
         )
 
     def test_encode_attributes_quotes(self):
-        self.assertEquals(
+        self.assertEqual(
             htmls.encode_attributes([
                 ('a', 'A "test"'),
                 ('b', "Another 'test'")

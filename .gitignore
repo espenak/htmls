@@ -20,3 +20,5 @@ __pycache__/
 .vscode/
 
 /build/
+.venv/
+.python-version

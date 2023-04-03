@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "htmls"
+dynamic = ["version"]
+description = "Makes it easy to write use CSS selectors with HTML in your unit tests."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    { name = "Espen Angell Kristiansen", email = "post@espenak.net" },
+]
+maintainers = [
+    { name = "Espen Angell Kristiansen", email = "post@espenak.net" },
+    { name = "Jim Nordal", email = "jim@appresso.no" },
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved",
+    "Programming Language :: Python",
+]
+dependencies = [
+    "cssselect",
+    "html5lib",
+    "lxml",
+]
+[project.optional-dependencies]
+dev = [
+    "flake8",
+    "tox",
+    "twine",
+    "six",
+]
+test = [
+    "pytest"
+]
+
+[project.urls]
+Homepage = "https://github.com/espenak/htmls"
+
+[tool.hatch.version]
+path = "htmls/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/htmls",
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "2.0.0"
+version_files = [
+    "htmls/__init__.py:__version__"
+]
+tag_format = "$version"
+update_changelog_on_bump = true
