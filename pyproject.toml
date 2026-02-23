@@ -31,10 +31,14 @@ dev = [
     "tox",
     "twine",
     "six",
+    "ruff",
 ]
 test = [
     "pytest"
 ]
+
+[tool.ruff]
+line-length = 120
 
 [project.urls]
 Homepage = "https://github.com/espenak/htmls"
