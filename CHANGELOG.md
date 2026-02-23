@@ -1,3 +1,9 @@
+## 3.0.1 (2026-02-23)
+
+### Fix
+
+- Fix Element.__str__, and add Element.selector() for recursive queries.
+
 ## 3.0.0 (2023-04-03)
 
 ### Feat

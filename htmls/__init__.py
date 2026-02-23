@@ -7,7 +7,7 @@ import html5lib
 from lxml.cssselect import CSSSelector
 from lxml.html import tostring
 
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 
 
 class NotExactlyOneMatchError(Exception):
