@@ -1,13 +1,11 @@
-from builtins import str
-from builtins import map
-from builtins import object
 import re
 import textwrap
+from builtins import map, object, str
 from xml.sax.saxutils import quoteattr
-from lxml.html import tostring
-from lxml.cssselect import CSSSelector
-import html5lib
 
+import html5lib
+from lxml.cssselect import CSSSelector
+from lxml.html import tostring
 
 __version__ = "3.0.0"
 
@@ -24,7 +22,7 @@ def normalize_whitespace(text):
     and replaces all consecutive whitespace characters (including tabs,
     newlines and nonbreak space) with a single space.
     """
-    return re.sub(r'(\s|\\xa0)+', ' ', text).strip()
+    return re.sub(r"(\s|\\xa0)+", " ", text).strip()
 
 
 def encode_attributes(iterable):
@@ -37,12 +35,10 @@ def encode_attributes(iterable):
         >>> encode_attributes([('class', 'btn')]) == 'class="btn"'
         True
     """
-    return ' '.join([
-        u'{}={}'.format(attribute, quoteattr(value))
-        for attribute, value in iterable])
+    return " ".join(["{}={}".format(attribute, quoteattr(value)) for attribute, value in iterable])
 
 
-def prettify_text(text, indent=''):
+def prettify_text(text, indent=""):
     """
     Dedent and reindent the given text.
 
@@ -55,13 +51,13 @@ def prettify_text(text, indent=''):
     """
     text = textwrap.dedent(text).strip()
     out = []
-    for line in text.split('\n'):
-        out.append(u'{}{}'.format(indent, line))
-    return u'\n'.join(out)
+    for line in text.split("\n"):
+        out.append("{}{}".format(indent, line))
+    return "\n".join(out)
 
 
 class PrettifyElement(object):
-    def __init__(self, element, indentspace='    '):
+    def __init__(self, element, indentspace="    "):
         self.indentspace = indentspace
         self.out = []
         self._prettify_element(element)
@@ -69,11 +65,10 @@ class PrettifyElement(object):
     def _prettify_element(self, element, indentcount=0):
         indent = self.indentspace * indentcount
         if element.tag:
-            attributes = u''
+            attributes = ""
             if element.attrib:
-                attributes = u' {}'.format(encode_attributes(list(element.items())))
-            self.out.append(u'{indent}<{tag}{attributes}>'.format(
-                indent=indent, tag=element.tag, attributes=attributes))
+                attributes = " {}".format(encode_attributes(list(element.items())))
+            self.out.append("{indent}<{tag}{attributes}>".format(indent=indent, tag=element.tag, attributes=attributes))
         if element.text and element.text.strip():
             textindent = indent
             if element.tag and element.text:
@@ -86,7 +81,7 @@ class PrettifyElement(object):
             self._prettify_element(childelement, indentcount=indentcount + 1)
 
         if element.tag:
-            self.out.append(u'{}</{}>'.format(indent, element.tag))
+            self.out.append("{}</{}>".format(indent, element.tag))
 
         # Handle text between two elements (below the current element)
         if element.tail and element.tail.strip():
@@ -94,7 +89,7 @@ class PrettifyElement(object):
             self.out.append(text)
 
     def __str__(self):
-        return u'\n'.join(self.out)
+        return "\n".join(self.out)
 
 
 def _get_all_text_in_element(rootelement):
@@ -154,7 +149,7 @@ class Element(object):
         Iterates over all the text nodes within this element, including any
         text nodes in child nodes and joins them into a single string.
         """
-        alltext = u''.join(_get_all_text_in_element(self.element))
+        alltext = "".join(_get_all_text_in_element(self.element))
         return alltext
 
     @property
@@ -181,14 +176,14 @@ class Element(object):
         """
         Get the CSS classes as a list.
         """
-        return re.split(r'\s+', self['class'].strip())
+        return re.split(r"\s+", self["class"].strip())
 
     @property
     def cssclasses_set(self):
         """
         Get the CSS classes as a set.
         """
-        return set(re.split(r'\s+', self['class'].strip()))
+        return set(re.split(r"\s+", self["class"].strip()))
 
     def hasclass(self, cssclass):
         """
@@ -216,6 +211,7 @@ class S(object):
     An object that is optimized for testing HTML output
     with CSS selectors.
     """
+
     def __init__(self, html):
         """
         Parameters:
@@ -234,7 +230,7 @@ class S(object):
         Returns:
             A lxml ElementTree.
         """
-        return html5lib.parse(self.html, treebuilder='lxml', namespaceHTMLElements=False)
+        return html5lib.parse(self.html, treebuilder="lxml", namespaceHTMLElements=False)
 
     def __str__(self):
         return tostring(self.parsed)
@@ -281,8 +277,9 @@ class S(object):
         matches = self.list(cssselector)
         if len(matches) != 1:
             raise NotExactlyOneMatchError(
-                '{!r} did not match a single element in '
-                'the given HTML, it matched {} elements.'.format(
-                    cssselector, len(matches)))
+                "{!r} did not match a single element in the given HTML, it matched {} elements.".format(
+                    cssselector, len(matches)
+                )
+            )
         else:
             return matches[0]
