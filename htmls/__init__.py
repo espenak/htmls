@@ -112,7 +112,10 @@ class Element(object):
         self.element = element
 
     def __str__(self):
-        return tostring(self.element)
+        output = tostring(self.element)
+        if isinstance(output, bytes):
+            output = output.decode("utf-8")
+        return output
 
     def prettify(self, **kwargs):
         return str(PrettifyElement(self.element, **kwargs))
@@ -204,6 +207,16 @@ class Element(object):
         Returns ``True`` if the given attribute is among the attributes.
         """
         return attribute in self.element.attrib
+
+    @property
+    def selector(self) -> "S":
+        """
+        Get a CSS selector that matches this element.
+
+        Note:
+            This is not guaranteed to be unique, and may not even be valid.
+        """
+        return S(tostring(self.element))
 
 
 class S(object):
